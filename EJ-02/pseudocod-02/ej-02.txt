@@ -1,0 +1,22 @@
+Algoritmo es_palindromo(cadena:CADENA CARACTERES) : BOOLEANO
+
+Variables:
+    cadena_inv:CADENA CARACTERES    # cadena invertida
+
+Precondición:
+    cadena != NULO
+
+Realización:
+    cadena <-- quitar_espcacios(cadena)
+    cadena <-- quitar_no_alfanumericos(cadena)
+    cadena <-- pasar_a_mayusculas(cadena)
+    cadena <-- sustituir_tildes(cadena)
+    cadena_inv <-- invertir_cadena(cadena)
+    
+    Resultado <-- son_iguales(cadena, cadena_inv)   # devuelve bool
+
+
+Postcondición:
+    invertir_cadena(cadena) = cadena_inv
+
+fin es_palindromo

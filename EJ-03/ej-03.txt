@@ -1,0 +1,30 @@
+tipo FICHA
+estructura
+    color:CADENA   # rojo(R), azul(A) o verde(V)
+    usada:BOOLEANO # true si la ficha ya ha sido movida
+fin tipo
+
+
+ALGORIMTO BANDERA DIJKSTRA
+
+Entrada
+    t : TABLA[FICHA][1,17]
+
+Salida : TABLA[FICHA][1,17]   # ordenada por colores R,V,A
+
+
+Inicialización
+    i <-- 1
+
+Mientras 
+    las 7 primeras fichas sean Rojas y las 4 siguientes sean Verdes
+    # y por tanto las 6 últimas sean Azules
+
+Repetir
+    si t[i].color = 'V'  entonces
+        i+1 <-- i  # pasamos a la siguiente celda
+    
+    si t[i].color = 'R'  entonces
+        i+1 <-- i  # pasamos a la siguiente celda (porque las anteriores se van a desplazar una posicion)
+        t <-- es_roja(t, inicio, fin, )
+    

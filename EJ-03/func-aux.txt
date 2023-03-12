@@ -1,0 +1,44 @@
+Algorimto es_roja(tabla, p)
+
+    Entrada
+        tabla : TABLA[FICHA][inc,17]
+        p : ENTERO   # posición de la ficha que estamos comprobando
+
+    Salida : TABLA[FICHA][inc,17]   # con nuevo orden
+
+    Precondicion
+        1 <= p <= 17
+
+    Realización
+        sacamos t[p] de su posición
+        para todo k en [1, p-1] se desplazan 1 celda a la derecha
+        t[1] <-- roja
+
+
+    Postcondicion
+        t[1] = t[p]   # la ficha roja se ha colocado en la primera posición
+
+    fin es_roja
+
+
+
+Algorimto es_azul(tabla, p)
+
+    Entrada
+        tabla : TABLA[FICHA][inc,17]
+        p : ENTERO   # posición de la ficha que estamos comprobando
+
+    Salida : TABLA[FICHA][inc,17]   # con nuevo orden
+
+    Precondicion
+        1 <= p <= 17
+
+    Realización
+        sacamos la ficha t[p] de su posicion
+        para todo k en [p+1, 17] se desplazan 1 celda a la izquierda
+        colocamos la ficha azul en la última posicion de la tabla
+
+    Postcondicion
+        t[1] = t[p]   # la ficha roja se ha colocado en la primera posición
+
+    fin es_roja
