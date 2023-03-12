@@ -1,0 +1,81 @@
+BÚSQEDA POR DICOTOMÍA EN UNA TABLA ORDENADA CRECIENTEMENTE
+
+Algoritmo busqueda_dicot
+    # Devuelve la posición en la que se encuentra el componente que deseamos encontrar 
+    o AUSENTE en el caso de que dicha componente no se encuentre en la tabla.
+ 
+Entrada 
+    t: TABLA[tipo]   # tabla donde vamos a buscar el componente 
+    inicio, fin: ENTERO   # intervalo de búsqueda 
+    c: tipo   # componente a buscar  
+ 
+Resultado: ENTERO  # numero de celda que contiene 'c' o AUSENTE  
+ 
+Precondición 
+    # ‘inicio’ y ‘fin’ son índices válidos
+    índice_válido(t, inicio)  
+    índice_válido(t, fin) 
+    inicio ≤ fin  
+ 
+    # se ha inicializado 't[inicio .. fin]'  
+    para todo k ENTERO inicio ≤ k ≤ fin ==> t[k] ≠ NULO  
+
+    # 't[incio .. fin]' está ordenada en orden creciente.  
+    está_ordenada_asc(t, inicio, fin)  # definida en los apuntes
+
+Variables
+    i, j:  ENTERO  # números celdas que determinan la zona de búsqueda (i<=j) 
+    medio: ENTERO  # número celda en el medio de la zona de búsqueda 
+
+Inicialización 
+    Resultado <-- AUSENTE   
+
+# si c es componenten de t[inicio..fin]
+si  t[inicio] ≤ c ≤ t[fin]  entonces 
+    i <-- inicio 
+    j <-- fin  
+
+    hasta que 
+        i > j o Resultado ≠ AUSENTE  # CONDICIÓN DE PARADA
+
+        invariante  # debe cumplires en cada iteración
+            t[inicio] ≤ c ≤ t[fin]  # ‘c’ es componente de t 
+               y  
+            # ‘c’ se encuentra dentro de la zona de búsqueda
+            i > inicio  y  j < fin  ==>  c <-- sub_tabla(t, inicio, i-1)  y  c <-- sub_tabla(t, j+1, fin) 
+
+        variante de control  # tiende a 0
+            j - i + 1  
+
+    repetir  
+        # celda en el medio de la zona de búsqueda 
+        medio <-- cociente(i+j, 2)  
+
+        # si la celda del medio es la que buscamos
+        si  t[medio] = c  entonces  
+           Resultado <-- medio  # hemos encontrado 'c'
+
+        si no    
+            si  t[medio] < c  entonces           
+                busqueda_dicot(t, medio+1, j, c)    # buscamos 'c' en la sub-tabla de la dcha
+
+            si no   # t[medio] > c 
+                busqueda_dicot(t, i, medio-1, c)    # buscamos 'c' en la sub-tabla de la izda
+            fin si 
+        fin si 
+    fin repetir 
+
+
+ si no   # si c NO es componente de tabla
+    nada  # el Resultado se mantendría como está y nos devolvería que 'c' está AUSENTE
+fin si 
+
+
+poscondición 
+    si   # 'c' es AUSENTE
+    Resultado = AUSENTE  y  para todo k ENTERO  (inicio ≤ k ≤ fin  ==>  t[k] ≠ c)
+    
+    o si no   # 'c' es componente de la tabla
+    inicio ≤ Resultado ≤ fin  y  t[Resultado] = c 
+ 
+fin busqueda_dicot 
