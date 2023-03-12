@@ -1,30 +1,49 @@
 tipo FICHA
-estructura
-    color:CADENA   # rojo(R), azul(A) o verde(V)
-    usada:BOOLEANO # true si la ficha ya ha sido movida
-fin tipo
+    estructura
+        color:CADENA   # rojo(R), azul(A) o verde(V)
+        usada:BOOLEANO # true si la ficha ya ha sido movida
+    fin tipo
 
 
-ALGORIMTO BANDERA DIJKSTRA
+Algoritmo ordenar_dijkstra
+# ordena las fichas de una tabla por colores R,V,A
+# las funciones auxiliares utilizadas se encuentran desarrolladas en el archivo func-aux.txt
 
-Entrada
-    t : TABLA[FICHA][1,17]
+    Entrada
+        t : TABLA[FICHA][1,17]
 
-Salida : TABLA[FICHA][1,17]   # ordenada por colores R,V,A
+    Salida : TABLA[FICHA][1,17]   # ordenada por colores R,V,A
 
+    Variables
+        i : ENTERO   # posición de la ficha que estamos tratando
 
-Inicialización
-    i <-- 1
+    Inicialización
+        i <-- 1
 
-Mientras 
-    las 7 primeras fichas sean Rojas y las 4 siguientes sean Verdes
-    # y por tanto las 6 últimas sean Azules
+    Mientras 
+        las 7 primeras fichas sean Rojas y las 4 siguientes sean Verdes
+        # y por tanto las 6 últimas sean Azules
 
-Repetir
-    si t[i].color = 'V'  entonces
-        i+1 <-- i  # pasamos a la siguiente celda
+    Repetir
+                
+        si t[i].color = 'R'  entonces
+            t <-- es_roja(t, i)   # la nueva tabla con los desplazamientos pertinentes por ser ficha roja
+            i+1 <-- i             # pasamos a la siguiente celda (porque las anteriores se van a desplazar una posicion)
+        
+        si t[i].color = 'V'  entonces
+            i+1 <-- i  # pasamos a la siguiente celda
+            # dejamos la tabla como está
+
+        si t[i].color = 'A'  entonces
+            t <-- es_azul(t, i)   # la nueva tabla con los desplazamientos pertinentes por ser ficha azul
+            # no nos movemos de posición, porque por la nueva tabla hay una nueva ficha no usada en nuestra posición
+        
+    Postcondición
+        (para todo k:ENTERO 1 <= k <= 7)  t[k].color = 'R'
+        (para todo k:ENTERO 8 <= k <= 11) t[k].color = 'V'
+        (para todo k:ENTERO 12 <= k <= 17) t[k].color = 'A'
     
-    si t[i].color = 'R'  entonces
-        i+1 <-- i  # pasamos a la siguiente celda (porque las anteriores se van a desplazar una posicion)
-        t <-- es_roja(t, inicio, fin, )
+    fin ordenar_dijkstra
+
+
     
